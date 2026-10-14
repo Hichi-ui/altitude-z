@@ -1,1807 +1,3666 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
 <title>Altitude Zero — Military Flight</title>
+
 <link rel="icon" href="altitude-z.png">
+
+
 
 <style>
 
+
+
 * {
+
     box-sizing: border-box;
+
 }
+
+
 
 body {
+
     margin: 0;
+
     background: #08090d;
+
     color: #eee;
+
     font-family: Georgia, "Times New Roman", serif;
+
     overflow: hidden;
+
 }
 
 /* =========================
+
    MENU DE DIFICULDADE
+
 ========================= */
+
+
 
 #difficultyScreen {
+
     position: fixed;
+
     inset: 0;
+
     background:
+
         radial-gradient(circle, #1d202b 0%, #08090d 70%);
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     z-index: 100;
+
 }
+
+
 
 #difficultyBox {
+
     width: 420px;
+
     max-width: 90%;
+
     background: #11131a;
+
     border: 1px solid #555968;
+
     padding: 35px;
+
     text-align: center;
+
 }
+
+
 
 #difficultyBox h1 {
+
     letter-spacing: 5px;
+
     color: #d6b98c;
+
     margin-bottom: 5px;
+
 }
+
+
 
 #difficultyBox p {
+
     color: #9ca0ad;
+
     font-size: 14px;
+
     line-height: 1.5;
+
 }
+
+
 
 .difficultyButton {
+
     width: 100%;
+
     margin-top: 12px;
+
     padding: 14px;
 
+
+
     background: #181b24;
+
     border: 1px solid #464a58;
 
+
+
     color: #ddd;
+
     font-family: Georgia, serif;
+
     font-size: 16px;
 
+
+
     cursor: pointer;
+
 }
+
+
 
 .difficultyButton:hover {
+
     background: #292d38;
+
     border-color: #d6b98c;
+
 }
 
+
+
 /* =========================
+
    JOGO
+
 ========================= */
+
+
 
 #game {
+
     display: flex;
+
     height: 100vh;
+
 }
+
+
 
 #gameArea {
+
     position: relative;
+
     flex: 1;
+
     overflow: hidden;
+
     background:
+
         radial-gradient(circle at 50% 20%,
+
         #20232e 0%,
+
         #0c0e14 45%,
+
         #050609 100%);
+
 }
+
+
 
 canvas {
+
     display: block;
+
     width: 100%;
+
     height: 100%;
+
 }
 
+
+
 /* =========================
+
    PAINEL
+
 ========================= */
 
+
+
 #panel {
+
     width: 390px;
+
     background: #11131a;
+
     border-left: 1px solid #353846;
+
+
 
     padding: 20px;
 
+
+
     display: flex;
+
     flex-direction: column;
+
 }
+
+
 
 #title {
+
     font-size: 27px;
+
     letter-spacing: 3px;
+
 }
+
+
 
 #subtitle {
+
     color: #999eae;
+
     font-size: 12px;
+
     margin-bottom: 15px;
+
 }
+
+
 
 #difficultyDisplay {
+
     color: #d6b98c;
+
     font-size: 13px;
+
     margin-bottom: 12px;
+
 }
+
+
 
 #chapterTitle {
+
     color: #d6b98c;
+
     font-size: 19px;
+
     margin-bottom: 10px;
+
 }
 
+
+
 #story {
+
     background: #0b0c11;
+
     border: 1px solid #30333f;
+
+
 
     padding: 15px;
 
+
+
     line-height: 1.55;
+
     font-size: 14px;
+
+
 
     height: 270px;
 
+
+
     overflow-y: auto;
 
+
+
     color: #d8d9df;
+
 }
 
+
+
 #scoreBox {
+
     display: flex;
+
     justify-content: space-between;
+
+
 
     margin: 14px 0;
 
+
+
     font-size: 14px;
+
 }
+
+
 
 #score {
+
     color: #d6b98c;
+
     font-weight: bold;
+
 }
+
+
 
 #chapter {
+
     color: #9ca4bd;
+
 }
 
+
+
 #input {
+
     width: 100%;
+
+
 
     padding: 14px;
 
+
+
     background: #08090d;
+
+
 
     border: 1px solid #575b6a;
 
+
+
     color: white;
+
+
 
     outline: none;
 
+
+
     font-size: 17px;
 
+
+
     font-family: monospace;
+
 }
+
+
 
 #input:focus {
+
     border-color: #d6b98c;
+
 }
 
+
+
 #hint {
+
     margin-top: 8px;
+
+
 
     color: #737887;
 
+
+
     font-size: 12px;
+
 }
 
+
+
 #status {
+
     margin-top: 8px;
+
+
 
     min-height: 20px;
 
+
+
     color: #c6c9d4;
 
+
+
     font-size: 13px;
+
 }
+
+
 
 #credits {
+
     margin-top: auto;
+
     padding-top: 12px;
+
     text-align: center;
+
     color: #686d7a;
+
     font-size: 11px;
+
     letter-spacing: 1px;
+
     border-top: 1px solid #292c36;
+
 }
+
+
 
 #credits strong {
+
     color: #d6b98c;
+
     font-weight: normal;
+
 }
 
+
+
 #stats {
+
     margin-top: 10px;
+
+
 
     padding: 10px;
 
+
+
     background: #0b0c11;
+
+
 
     border: 1px solid #292c36;
 
+
+
     font-family: monospace;
+
+
 
     font-size: 12px;
 
+
+
     color: #9da2b1;
+
 }
 
+
+
 /* =========================
+
    FINAL
+
 ========================= */
 
+
+
 #ending {
+
     position: absolute;
+
+
 
     inset: 0;
 
+
+
     background: rgba(5, 6, 9, 0.96);
+
+
 
     display: none;
 
+
+
     justify-content: center;
+
     align-items: center;
+
+
 
     text-align: center;
 
+
+
     z-index: 50;
+
 }
 
+
+
 #endingBox {
+
     width: 600px;
+
     max-width: 90%;
+
+
 
     padding: 35px;
 
+
+
     border: 1px solid #555968;
 
+
+
     background: #11131a;
+
 }
+
+
 
 #endingBox h1 {
+
     letter-spacing: 6px;
 
+
+
     color: #d6b98c;
+
 }
 
+
+
 .finalStats {
+
     margin: 25px 0;
+
+
 
     font-family: monospace;
 
+
+
     line-height: 2;
 
+
+
     color: #c9ccd5;
+
 }
 
+
+
 .finalWpm {
+
     font-size: 42px;
+
+
 
     color: #d6b98c;
 
+
+
     margin: 15px;
+
 }
 
+
+
 button {
+
     padding: 12px 20px;
+
+
 
     background: #1b1e28;
 
+
+
     color: #ddd;
+
+
 
     border: 1px solid #4a4e5c;
 
+
+
     cursor: pointer;
+
 }
+
+
 
 button:hover {
+
     background: #282c38;
+
 }
 
+
+
 </style>
+
 </head>
+
+
 
 <body>
 
+<!-- =====================================================
+     MÚSICA DE FUNDO
+===================================================== -->
+<audio id="musicaFundo" src="audio/altzer0.mp3" preload="auto" loop></audio>
+
+
+
+
+
 
 <!-- =====================================================
+
      ESCOLHA DA DIFICULDADE
+
 ===================================================== -->
+
+
 
 <div id="difficultyScreen">
 
+
+
     <div id="difficultyBox">
+
+
 
         <h1>ALTITUDE ZERO</h1>
 
-        <p>
-            MILITARY FLIGHT
-        </p>
+
 
         <p>
-            Escolha a dificuldade antes de começar.
-            Sua velocidade será calculada em palavras por minuto.
+
+            MILITARY FLIGHT
+
         </p>
+
+
+
+        <p>
+
+            Escolha a dificuldade antes de começar.
+
+            Sua velocidade será calculada em palavras por minuto.
+
+        </p>
+
+
 
         <button
+
             class="difficultyButton"
+
             onclick="startGame('easy')">
 
+
+
             FÁCIL
+
             <br>
+
             <small>
+
                 Caças de treinamento • palavras menores
+
             </small>
+
+
 
         </button>
 
+
+
         <button
+
             class="difficultyButton"
+
             onclick="startGame('normal')">
 
+
+
             NORMAL
+
             <br>
+
             <small>
+
                 Operação padrão • velocidade equilibrada
+
             </small>
 
+
+
         </button>
+
+
 
         <button
+
             class="difficultyButton"
+
             onclick="startGame('hard')">
 
+
+
             DIFÍCIL
+
             <br>
+
             <small>
+
                 Caças rápidos • palavras maiores
+
             </small>
 
+
+
         </button>
+
+
 
     </div>
 
+
+
 </div>
+
+
+
 
 
 <!-- =====================================================
+
      JOGO
+
 ===================================================== -->
+
+
 
 <div id="game">
 
+
+
     <div id="gameArea">
+
+
 
         <canvas id="canvas"></canvas>
 
+
+
         <div id="gameOverScreen" style="display:none; position:absolute; inset:0; background:rgba(5,6,9,0.97); justify-content:center; align-items:center; text-align:center; z-index:60;">
+
             <div id="gameOverBox" style="width:600px; max-width:90%; padding:35px; border:1px solid #8b3b3b; background:#11131a;">
+
                 <h1 style="letter-spacing:6px; color:#c45b5b; margin-bottom:10px;">GAME OVER</h1>
+
                 <p id="gameOverMessage">A aeronave foi perdida durante a operação.</p>
+
                 <div class="finalStats">
+
                     Pontuação: <span id="gameOverScore">0</span><br>
+
                     Precisão: <span id="gameOverAccuracy">0%</span><br>
+
                     Capítulo alcançado: <span id="gameOverChapter">1/8</span>
+
                 </div>
+
                 <button onclick="restartGame()">TENTAR NOVAMENTE</button>
+
                 <button onclick="backToDifficulty()">MUDAR DIFICULDADE</button>
+
             </div>
+
         </div>
+
+
 
         <div id="ending">
 
+
+
             <div id="endingBox">
+
+
 
                 <h1>MISSÃO CONCLUÍDA</h1>
 
+
+
                 <p>
+
                     OPERAÇÃO ALTITUDE ZERO CONCLUÍDA. 40 DE 40 PALAVRAS ACERTADAS.
+
                 </p>
 
+
+
                 <div class="finalWpm">
+
                     <span id="finalWpm">0</span> WPM
+
                 </div>
+
+
 
                 <div class="finalStats">
 
+
+
                     Palavras corretas:
+
                     <span id="finalWords">0</span>
+
                     <br>
+
+
 
                     Palavras tentadas:
+
                     <span id="finalAttempts">0</span>
+
                     <br>
+
+
 
                     Precisão:
+
                     <span id="finalAccuracy">0%</span>
+
                     <br>
 
+
+
                     Tempo:
+
                     <span id="finalTime">0:00</span>
+
+
 
                 </div>
 
+
+
                 <button onclick="location.reload()">
+
                     Nova missão
+
                 </button>
+
+
 
             </div>
 
+
+
         </div>
+
+
 
     </div>
 
 
+
+
+
     <!-- =================================================
+
          PAINEL
+
     ================================================= -->
+
+
 
     <aside id="panel">
 
+
+
         <div id="title">
+
             ALTITUDE ZERO
+
         </div>
+
+
 
         <div id="subtitle">
+
             MILITARY FLIGHT — CLASSIFIED
+
         </div>
+
+        <!-- Controle da trilha sonora -->
+        <button id="musicToggle" type="button" onclick="toggleMusic()"
+                style="width:100%; margin-bottom:12px;">
+            ♫ Música: ligada
+        </button>
+
+
 
         <div id="difficultyDisplay">
+
             Dificuldade: —
+
         </div>
 
+
+
         <div id="chapterTitle">
+
             Capítulo 1
+
         </div>
+
+
 
         <div id="story"></div>
 
+
+
         <div id="scoreBox">
 
+
+
             <span>
+
                 Palavras:
+
                 <span id="score">0</span>
+
             </span>
 
+
+
             <span>
+
                 Capítulo:
+
                 <span id="chapter">1/8</span>
+
             </span>
 
+
+
             <span>
+
                 Pontuação necessária:
+
                 <span id="requiredScore">40</span>
+
             </span>
 
+
+
             <span>
+
                 Integridade:
+
                 <span id="lives">3</span>
+
             </span>
+
+
 
         </div>
+
+
 
         <input
+
             id="input"
+
             type="text"
+
             autocomplete="off"
+
             placeholder="Digite a palavra..."
+
         >
 
+
+
         <div id="hint">
+
             Digite exatamente a palavra mostrada no caça.
+
         </div>
+
+
 
         <div id="status"></div>
 
+
+
         <div id="stats">
 
+
+
             TEMPO:
+
             <span id="time">0:00</span>
 
+
+
             <br>
+
+
 
             WPM:
+
             <span id="liveWpm">0</span>
+
+
 
             <br>
 
+
+
             PRECISÃO:
+
             <span id="accuracy">100%</span>
 
+
+
         </div>
 
+
+
         <div id="credits">
+
             Desenvolvido por <strong>HichiRuz</strong>
+
         </div>
+
+
 
     </aside>
 
+
+
 </div>
+
+
+
 
 
 <script>
 
+
+
 /* =====================================================
+
    ELEMENTOS
+
 ===================================================== */
 
+
+
 const canvas =
+
     document.getElementById("canvas");
 
+
+
 const ctx =
+
     canvas.getContext("2d");
 
+// Música de fundo: edite o volume em MUSIC_VOLUME.
+const musicaFundo = document.getElementById("musicaFundo");
+const musicToggle = document.getElementById("musicToggle");
+const MUSIC_VOLUME = 0.50;
+musicaFundo.volume = MUSIC_VOLUME;
+
+// Mostra no Console se o arquivo de áudio não for encontrado/carregado.
+musicaFundo.addEventListener("error", () => {
+    console.error(
+        "Erro ao carregar audio/trilha.mp3. Confira o nome e a pasta do arquivo.",
+        musicaFundo.error
+    );
+});
+
+
+
 const input =
+
     document.getElementById("input");
 
+
+
 const scoreElement =
+
     document.getElementById("score");
 
+
+
 const chapterElement =
+
     document.getElementById("chapter");
 
+
+
 const chapterTitle =
+
     document.getElementById("chapterTitle");
 
+
+
 const storyElement =
+
     document.getElementById("story");
 
+
+
 const statusElement =
+
     document.getElementById("status");
 
+
+
 const difficultyDisplay =
+
     document.getElementById("difficultyDisplay");
 
+
+
 const timeElement =
+
     document.getElementById("time");
 
+
+
 const wpmElement =
+
     document.getElementById("liveWpm");
 
+
+
 const accuracyElement =
+
     document.getElementById("accuracy");
 
 
+
+
+
 /* =====================================================
+
    CONFIGURAÇÕES
+
 ===================================================== */
+
+
 
 const difficulties = {
 
+
+
     easy: {
+
+
 
         name: "Cadete",
 
+
+
         speedMin: 0.28,
+
         speedMax: 0.42,
+
+
 
         spawnTime: 2700
 
+
+
     },
+
+
 
     normal: {
 
+
+
         name: "Piloto",
 
+
+
         speedMin: 0.45,
+
         speedMax: 0.65,
+
+
 
         spawnTime: 2200
 
+
+
     },
+
+
 
     hard: {
 
+
+
         name: "Falcão",
 
+
+
         speedMin: 0.70,
+
         speedMax: 0.95,
+
+
 
         spawnTime: 1600
 
+
+
     }
 
+
+
 };
+
+
 
 let difficulty;
 
 
+
+
+
 /* =====================================================
+
    HISTÓRIA
+
 ===================================================== */
+
+
 
 const chapters = [
 
+
+
 {
+
     title: "Capítulo 1 — Decolagem",
+
     story: `
+
     O piloto Caio Vilar é selecionado para uma missão de teste
+
     em um esquadrão militar de elite.
 
+
+
     Durante um voo de treinamento, seu caça recebe uma transmissão
+
     codificada de origem desconhecida.
+
+
 
     A mensagem contém apenas uma ordem:
 
+
+
     "Não ultrapasse a Altitude Zero."
 
+
+
     Caio tenta identificar a origem do sinal, mas nenhum registro
+
     aparece no sistema militar.
+
     `,
+
     words: ["caio","vilar","decolagem","esquadrao","militar","piloto","caca","transmissao","altitude","zero"]
+
 },
 
+
+
 {
+
     title: "Capítulo 2 — Contato Desconhecido",
+
     story: `
+
     Durante uma patrulha, Caio e seu esquadrão detectam uma aeronave
+
     não identificada entrando no espaço aéreo.
+
+
 
     O comando ordena uma interceptação.
 
+
+
     Porém, quando os caças se aproximam, a aeronave desaparece
+
     completamente do radar.
+
+
 
     Logo depois, uma tempestade anormal surge à frente.
 
+
+
     Os sistemas de navegação começam a falhar e Caio perde contato
+
     com o restante do esquadrão.
+
     `,
+
     words: ["patrulha","contato","radar","interceptacao","tempestade","navegacao","esquadrao","sinal","comando","alvo"]
+
 },
 
+
+
 {
+
     title: "Capítulo 3 — O Aeródromo Fantasma",
+
     story: `
+
     Separado de seu esquadrão, Caio precisa fazer um pouso de emergência
+
     em uma antiga base militar abandonada.
+
+
 
     Não há sinais de atividade humana.
 
+
+
     Dentro da torre de controle, ele encontra registros de uma operação
+
     secreta realizada décadas atrás.
+
+
 
     O nome da operação aparece repetidamente nos documentos:
 
+
+
     PROJETO ALTITUDE ZERO.
+
+
 
     Todos os registros terminam com a mesma frase:
 
+
+
     "A aeronave não retornou."
+
     `,
+
     words: ["aerodromo","fantasma","base","militar","torre","controle","operacao","projeto","registro","retorno"]
+
 },
 
+
+
 {
+
     title: "Capítulo 4 — O Último Esquadrão",
+
     story: `
+
     Caio encontra uma gravação deixada por um piloto desaparecido.
 
+
+
     O piloto explica que vários aviadores foram enviados para investigar
+
     fenômenos inexplicáveis naquela região.
+
+
 
     Nenhum deles retornou oficialmente.
 
+
+
     A última mensagem da gravação é curta:
 
+
+
     "Se você está ouvindo isso, não confie no radar.
+
     Ele mostra coisas que não estão realmente lá."
 
+
+
     Caio percebe que talvez não esteja sozinho naquela base.
+
     `,
+
     words: ["gravacao","piloto","desaparecido","fenomeno","radar","aviador","investigacao","mensagem","perigo","sozinho"]
+
 },
 
+
+
 {
+
     title: "Capítulo 5 — VÉRTICE-01",
+
     story: `
+
     Em um hangar subterrâneo, Caio encontra um caça experimental.
+
+
 
     Na fuselagem existe apenas uma identificação:
 
+
+
     VÉRTICE-01.
 
+
+
     A aeronave possui tecnologia desconhecida e um sistema de navegação
+
     diferente de qualquer equipamento militar conhecido.
+
+
 
     Quando Caio entra na cabine, o computador reconhece seu nome.
 
+
+
     PILOTO: CAIO VILAR
+
     MISSÃO: CONTINUAR OPERAÇÃO ALTITUDE ZERO
 
+
+
     O motor é acionado automaticamente.
+
     `,
+
     words: ["vertice","experimental","hangar","tecnologia","cabine","computador","missao","motor","prototipo","aeronave"]
+
 },
 
+
+
 {
+
     title: "Capítulo 6 — Zona de Combate",
+
     story: `
+
     Caio decola com o Vértice-01 e atravessa a tempestade.
+
+
 
     Do outro lado existe um espaço aéreo desconhecido.
 
+
+
     Vários caças aparecem no radar.
 
+
+
     O mais estranho é que suas identificações pertencem a esquadrões
+
     de épocas diferentes.
+
+
 
     Caio reconhece alguns códigos nos registros encontrados na base.
 
+
+
     Os aviões pertencem aos pilotos que desapareceram durante
+
     missões anteriores.
 
+
+
     E agora estão se aproximando.
+
     `,
+
     words: ["combate","cacas","radar","codigo","esquadrao","epocas","desaparecidos","formacao","interceptar","aproximacao"]
+
 },
 
+
+
 {
+
     title: "Capítulo 7 — O Céu Partido",
+
     story: `
+
     Caio precisa atravessar a zona de combate e alcançar a origem
+
     do fenômeno.
+
+
 
     Os instrumentos mostram múltiplas posições para o mesmo alvo.
 
+
+
     A Altitude Zero não é apenas uma coordenada.
 
+
+
     É o nome dado pelos militares a uma região onde espaço e tempo
+
     parecem funcionar de maneira diferente.
 
+
+
     As bases abandonadas, os pilotos desaparecidos e os caças duplicados
+
     fazem parte do mesmo fenômeno.
 
+
+
     Caio finalmente encontra o centro da região.
+
     `,
+
     words: ["coordenada","fenomeno","espaco","tempo","duplicado","regiao","origem","centro","instrumentos","altitude"]
+
 },
 
+
+
 {
+
     title: "Capítulo 8 — Última Missão",
+
     story: `
+
     No centro da região, Caio encontra uma gigantesca estrutura
+
     suspensa acima das nuvens.
 
+
+
     Ela parece ser responsável por distorcer radares, sinais
+
     e rotas de voo.
+
+
 
     O computador do Vértice-01 apresenta uma última mensagem:
 
+
+
     OPERAÇÃO ALTITUDE ZERO — FASE FINAL
 
+
+
     Caio precisa decidir se deve destruir a estrutura ou descobrir
+
     quem a construiu.
+
+
 
     Ele entra na estrutura.
 
+
+
     Segundos depois, seu caça desaparece.
+
+
 
     A torre militar recebe uma transmissão:
 
+
+
     "Aqui é o Vértice-01. Estou retornando."
+
+
 
     Mas a voz no rádio não é de Caio.
 
+
+
     FIM DA PARTE I.
+
     `,
+
     words: ["estrutura","nuvens","radar","sinais","rotas","fase","destruir","retorno","transmissao","vertice"]
+
 }
+
+
 
 ];
 
 
+
+
+
 /* =====================================================
+
    VARIÁVEIS
+
 ===================================================== */
 
+
+
 let width;
+
 let height;
+
+
 
 let score = 0;
 
+
+
 let attempts = 0;
+
+
 
 let lives = 3;
 
+
+
 let gameOver = false;
+
+
 
 let chapterIndex = 0;
 
+
+
 let enemies = [];
+
+
 
 let particles = [];
 
+
+
 let startTime = null;
 
+
+
 let elapsedSeconds = 0;
+
+
 
 let spawnInterval;
 
 
+
+
+
 /* =====================================================
+
    RESIZE
+
 ===================================================== */
+
+
 
 function resize() {
 
+
+
     width = canvas.clientWidth;
+
     height = canvas.clientHeight;
 
+
+
     canvas.width =
+
         width * devicePixelRatio;
 
+
+
     canvas.height =
+
         height * devicePixelRatio;
 
+
+
     ctx.setTransform(
+
         devicePixelRatio,
+
         0,
+
         0,
+
         devicePixelRatio,
+
         0,
+
         0
+
     );
+
 }
 
+
+
 window.addEventListener(
+
     "resize",
+
     resize
+
 );
 
 
+
+
+
 /* =====================================================
+
    COMEÇAR JOGO
+
 ===================================================== */
 
+
+
+// Inicia a música quando o jogador escolhe uma dificuldade.
+// Isso evita o bloqueio de reprodução automática dos navegadores.
+async function startMusic() {
+    try {
+        await musicaFundo.play();
+        musicToggle.textContent = "♫ Música: ligada";
+    } catch (erro) {
+        console.warn("Não foi possível iniciar a música:", erro);
+        musicToggle.textContent = "♫ Clique para ativar a música";
+    }
+}
+
+// Botão para pausar ou retomar a trilha.
+async function toggleMusic() {
+    if (musicaFundo.paused) {
+        await startMusic();
+    } else {
+        musicaFundo.pause();
+        musicToggle.textContent = "♫ Música: desligada";
+    }
+}
+
 function startGame(selectedDifficulty) {
+    startMusic();
+
+
 
     difficulty =
+
         difficulties[selectedDifficulty];
 
+
+
     score = 0;
+
     attempts = 0;
+
     lives = 3;
+
     chapterIndex = 0;
+
     enemies = [];
+
     particles = [];
+
     gameOver = false;
+
     startTime = null;
+
     elapsedSeconds = 0;
 
+
+
     document.getElementById(
+
         "difficultyScreen"
+
     ).style.display = "none";
 
+
+
     document.getElementById("gameOverScreen").style.display = "none";
+
     document.getElementById("ending").style.display = "none";
 
+
+
     difficultyDisplay.textContent =
+
         "Dificuldade: " +
+
         difficulty.name;
+
+
 
     resize();
 
+
+
     loadChapter();
 
+
+
     startTime =
+
         Date.now();
 
+
+
     spawnInterval =
+
         setInterval(
+
             createEnemy,
+
             difficulty.spawnTime
+
         );
+
+
 
     input.focus();
 
+
+
     gameLoop();
+
 }
 
 
+
+
+
 /* =====================================================
+
    NORMALIZAR PALAVRA
+
 ===================================================== */
+
+
 
 function normalize(text) {
 
+
+
     return text
+
         .toLowerCase()
+
         .normalize("NFD")
+
         .replace(
+
             /[\u0300-\u036f]/g,
+
             ""
+
         );
+
 }
 
 
+
+
+
 /* =====================================================
+
    CRIAR AVIÃO
+
 ===================================================== */
+
+
 
 function createEnemy() {
 
+
+
     if (gameOver) return;
 
+
+
     const currentWords =
+
         chapters[chapterIndex].words;
 
+
+
     const word =
+
         currentWords[
+
             Math.floor(
+
                 Math.random() *
+
                 currentWords.length
+
             )
+
         ];
 
+
+
     const speed =
+
         difficulty.speedMin +
+
         Math.random() *
+
         (
+
             difficulty.speedMax -
+
             difficulty.speedMin
+
         );
+
+
 
     enemies.push({
 
+
+
         x:
+
             80 +
+
             Math.random() *
+
             (width - 160),
+
+
 
         y: -60,
 
+
+
         speed: speed,
+
+
 
         word: word,
 
+
+
         wobble:
+
             Math.random() *
+
             Math.PI *
+
             2
 
+
+
     });
+
 }
 
 
+
+
+
 /* =====================================================
+
    AVIÃO DO JOGADOR
+
 ===================================================== */
+
+
 
 function drawPlayer() {
 
+
+
     const x =
+
         width / 2;
 
+
+
     const y =
+
         height - 80;
+
+
 
     ctx.save();
 
+
+
     ctx.translate(
+
         x,
+
         y
+
     );
+
+
 
     ctx.beginPath();
 
+
+
     ctx.moveTo(
+
         0,
+
         -30
+
     );
 
+
+
     ctx.lineTo(
+
         9,
+
         20
+
     );
 
+
+
     ctx.lineTo(
+
         0,
+
         30
+
     );
 
+
+
     ctx.lineTo(
+
         -9,
+
         20
+
     );
+
+
 
     ctx.closePath();
 
+
+
     ctx.fillStyle =
+
         "#9aa7b4";
 
+
+
     ctx.fill();
+
+
+
 
 
     /* asas */
 
+
+
     ctx.beginPath();
 
+
+
     ctx.moveTo(
+
         -7,
+
         0
+
     );
 
+
+
     ctx.lineTo(
+
         -43,
+
         20
+
     );
 
+
+
     ctx.lineTo(
+
         -35,
+
         24
+
     );
 
+
+
     ctx.lineTo(
+
         0,
+
         12
+
     );
 
+
+
     ctx.lineTo(
+
         35,
+
         24
+
     );
 
+
+
     ctx.lineTo(
+
         43,
+
         20
+
     );
 
+
+
     ctx.lineTo(
+
         7,
+
         0
+
     );
+
+
 
     ctx.closePath();
 
+
+
     ctx.fillStyle =
+
         "#59636e";
+
+
 
     ctx.fill();
 
+
+
     ctx.restore();
+
 }
 
 
+
+
+
 /* =====================================================
+
    AVIÃO INIMIGO
+
 ===================================================== */
+
+
 
 function drawEnemy(enemy) {
 
+
+
     ctx.save();
 
+
+
     ctx.translate(
+
         enemy.x,
+
         enemy.y
+
     );
+
+
 
     ctx.beginPath();
 
+
+
     ctx.moveTo(
+
         0,
+
         28
+
     );
 
+
+
     ctx.lineTo(
+
         8,
+
         -18
+
     );
 
+
+
     ctx.lineTo(
+
         0,
+
         -30
+
     );
 
+
+
     ctx.lineTo(
+
         -8,
+
         -18
+
     );
+
+
 
     ctx.closePath();
 
+
+
     ctx.fillStyle =
+
         "#46515c";
 
+
+
     ctx.fill();
+
+
+
 
 
     /* asas */
 
+
+
     ctx.beginPath();
 
+
+
     ctx.moveTo(
+
         -7,
+
         0
+
     );
 
+
+
     ctx.lineTo(
+
         -38,
+
         -20
+
     );
 
+
+
     ctx.lineTo(
+
         -44,
+
         -16
+
     );
 
+
+
     ctx.lineTo(
+
         -8,
+
         9
+
     );
 
+
+
     ctx.lineTo(
+
         8,
+
         9
+
     );
 
+
+
     ctx.lineTo(
+
         44,
+
         -16
+
     );
 
+
+
     ctx.lineTo(
+
         38,
+
         -20
+
     );
 
+
+
     ctx.lineTo(
+
         7,
+
         0
+
     );
+
+
 
     ctx.closePath();
 
+
+
     ctx.fillStyle =
+
         "#303a44";
 
+
+
     ctx.fill();
+
+
+
 
 
     /* palavra */
 
+
+
     ctx.font =
+
         "bold 14px monospace";
 
+
+
     ctx.textAlign =
+
         "center";
 
+
+
     const textWidth =
+
         ctx.measureText(
+
             enemy.word
+
         ).width + 18;
 
+
+
     ctx.fillStyle =
+
         "rgba(0,0,0,0.8)";
 
+
+
     ctx.fillRect(
+
         -textWidth / 2,
+
         35,
+
         textWidth,
+
         23
+
     );
+
+
 
     ctx.fillStyle =
+
         "#e5d7b9";
 
+
+
     ctx.fillText(
+
         enemy.word,
+
         0,
+
         51
+
     );
 
+
+
     ctx.restore();
+
 }
+
+
+
 
 
 /* =====================================================
+
    EFEITO
+
 ===================================================== */
+
+
 
 function createEffect(x, y) {
 
+
+
     for (
+
         let i = 0;
+
         i < 12;
+
         i++
+
     ) {
+
+
 
         particles.push({
 
+
+
             x: x,
+
+
 
             y: y,
 
+
+
             vx:
+
                 (Math.random() - 0.5)
+
                 * 5,
+
+
 
             vy:
+
                 (Math.random() - 0.5)
+
                 * 5,
 
+
+
             life:
+
                 30 +
+
                 Math.random() * 20
 
+
+
         });
+
     }
+
 }
+
+
+
 
 
 function updateParticles() {
 
+
+
     for (const p of particles) {
+
+
 
         p.x += p.vx;
 
+
+
         p.y += p.vy;
+
+
 
         p.life--;
 
+
+
     }
 
+
+
     particles =
+
         particles.filter(
+
             p => p.life > 0
+
         );
+
 }
+
+
+
 
 
 function drawParticles() {
 
+
+
     for (const p of particles) {
 
+
+
         ctx.fillStyle =
+
             `rgba(214,185,140,${p.life / 50})`;
 
+
+
         ctx.fillRect(
+
             p.x,
+
             p.y,
+
             3,
+
             3
+
         );
+
     }
+
 }
 
 
+
+
+
 /* =====================================================
+
    ATUALIZAR WPM
+
 ===================================================== */
+
+
 
 function updateStats() {
 
+
+
     if (!startTime) return;
 
+
+
     elapsedSeconds =
+
         (Date.now() - startTime) / 1000;
 
+
+
     const minutes =
+
         elapsedSeconds / 60;
+
+
 
     let wpm = 0;
 
+
+
     if (minutes > 0) {
 
+
+
         wpm =
+
             score / minutes;
+
+
 
     }
 
+
+
     const accuracy =
+
         attempts > 0
+
         ? Math.min(100, (score / attempts) * 100)
+
         : 100;
 
+
+
     wpmElement.textContent =
+
         Math.round(wpm);
 
+
+
     accuracyElement.textContent =
+
         Math.round(accuracy) + "%";
+
+
 
     document.getElementById("lives").textContent = lives;
 
+
+
     const totalSeconds =
+
         Math.floor(elapsedSeconds);
 
+
+
     const mins =
+
         Math.floor(
+
             totalSeconds / 60
+
         );
+
+
 
     const secs =
+
         totalSeconds % 60;
 
+
+
     timeElement.textContent =
+
         mins +
+
         ":" +
+
         String(secs).padStart(
+
             2,
+
             "0"
+
         );
+
 }
 
 
+
+
+
 /* =====================================================
+
    NEUTRALIZAR
+
 ===================================================== */
+
+
 
 function neutralizeEnemy(index) {
 
+
+
     const enemy =
+
         enemies[index];
 
+
+
     createEffect(
+
         enemy.x,
+
         enemy.y
+
     );
 
+
+
     enemies.splice(
+
         index,
+
         1
+
     );
+
+
 
     score++;
 
+
+
     scoreElement.textContent =
+
         score;
 
+
+
     statusElement.textContent =
+
         "Alvo neutralizado.";
+
+
 
     checkChapter();
 
+
+
     updateStats();
+
 }
 
 
+
+
+
 /* =====================================================
+
    CAPÍTULOS
+
 ===================================================== */
+
+
 
 function checkChapter() {
 
+
+
     /*
+
         Existem 8 capítulos.
+
         A cada 5 palavras acertadas, o jogador avança
+
         para o próximo capítulo.
 
+
+
         Ao chegar a 40 acertos, a missão é concluída.
+
     */
 
+
+
     const finalRequired = 40;
+
     const wordsPerChapter = 5;
 
+
+
     // Vitória final
+
     if (score >= finalRequired) {
+
         finishGame();
+
         return;
+
     }
+
+
 
     // 0-4 acertos = capítulo 1
+
     // 5-9 acertos = capítulo 2
+
     // 10-14 acertos = capítulo 3
+
     // ...
+
     // 35-39 acertos = capítulo 8
+
     const newChapterIndex = Math.min(
+
         Math.floor(score / wordsPerChapter),
+
         chapters.length - 1
+
     );
 
+
+
     if (newChapterIndex !== chapterIndex) {
+
         chapterIndex = newChapterIndex;
+
         loadChapter();
 
+
+
         statusElement.textContent =
+
             `Capítulo ${chapterIndex + 1} alcançado. Continue a operação.`;
+
     }
 
+
+
     document.getElementById("requiredScore").textContent =
+
         finalRequired;
+
 }
+
+
 
 function loadChapter() {
 
+
+
     const chapter =
+
         chapters[chapterIndex];
 
+
+
     chapterTitle.textContent =
+
         chapter.title;
 
+
+
     storyElement.innerHTML =
+
         chapter.story;
 
+
+
     chapterElement.textContent =
+
         `${chapterIndex + 1}/${chapters.length}`;
 
+
+
     statusElement.textContent =
+
         "Nova operação.";
 
+
+
     storyElement.scrollTop = 0;
+
 }
 
 
+
+
+
 /* =====================================================
+
    INIMIGOS
+
 ===================================================== */
+
+
 
 function updateEnemies() {
 
+
+
     for (const enemy of enemies) {
 
+
+
         enemy.y +=
+
             enemy.speed;
 
+
+
         enemy.x +=
+
             Math.sin(
+
                 enemy.y * 0.01 +
+
                 enemy.wobble
+
             ) * 0.12;
 
+
+
         if (
+
             enemy.y >
+
             height + 70
+
         ) {
 
+
+
             /*
+
                Em vez de acabar imediatamente,
+
                apenas registra uma tentativa
+
                perdida e remove o avião.
+
             */
 
+
+
             enemies.splice(
+
                 enemies.indexOf(enemy),
+
                 1
+
             );
 
+
+
             attempts++;
+
             lives--;
 
+
+
             statusElement.textContent =
+
                 lives > 0
+
                 ? `Contato escapou. Integridade restante: ${lives}`
+
                 : "Aeronave perdida. Operação encerrada.";
+
+
 
             updateStats();
 
+
+
             if (lives <= 0) {
+
                 showGameOver("Você perdeu todas as unidades de integridade do Vértice-01.");
+
                 return;
+
             }
 
+
+
             break;
+
         }
+
     }
+
 }
 
 
+
+
+
 /* =====================================================
+
    FUNDO
+
 ===================================================== */
+
+
 
 function drawBackground() {
 
+
+
     ctx.fillStyle =
+
         "#08090d";
 
+
+
     ctx.fillRect(
+
         0,
+
         0,
+
         width,
+
         height
+
     );
 
+
+
     ctx.fillStyle =
+
         "rgba(255,255,255,0.08)";
 
+
+
     for (
+
         let x = 0;
+
         x < width;
+
         x += 80
+
     ) {
 
+
+
         for (
+
             let y = 0;
+
             y < height;
+
             y += 80
+
         ) {
 
+
+
             ctx.fillRect(
+
                 x,
+
                 y,
+
                 1,
+
                 1
+
             );
+
         }
+
     }
 
+
+
     ctx.strokeStyle =
+
         "rgba(214,185,140,0.12)";
+
+
 
     ctx.beginPath();
 
+
+
     ctx.moveTo(
+
         0,
+
         height - 125
+
     );
+
+
 
     ctx.lineTo(
+
         width,
+
         height - 125
+
     );
 
+
+
     ctx.stroke();
+
 }
 
 
+
+
+
 /* =====================================================
+
    INPUT
+
 ===================================================== */
 
+
+
 input.addEventListener(
+
     "input",
+
     () => {
 
+
+
         if (gameOver)
+
             return;
+
+
 
         const typed =
+
             normalize(
+
                 input.value.trim()
+
             );
 
+
+
         if (!typed)
+
             return;
 
+
+
         /*
+
            Uma tentativa é registrada
+
            quando o jogador termina
+
            uma palavra.
+
         */
 
+
+
         for (
+
             let i = 0;
+
             i < enemies.length;
+
             i++
+
         ) {
 
+
+
             const enemy =
+
                 enemies[i];
 
+
+
             if (
+
                 normalize(
+
                     enemy.word
+
                 ) === typed
+
             ) {
 
+
+
                 // Toda palavra finalizada conta como uma tentativa.
+
                 // Assim, acertos e erros entram corretamente no cálculo
+
                 // da precisão: acertos / tentativas * 100.
+
                 attempts++;
+
+
 
                 neutralizeEnemy(i);
 
+
+
                 input.value = "";
 
+
+
                 return;
+
             }
+
         }
 
+
+
         /*
+
            Se o texto digitado já não
+
            corresponde ao início de
+
            nenhuma palavra existente,
+
            limpa o campo.
+
         */
 
+
+
         const possible =
+
             enemies.some(
+
                 enemy =>
+
                     normalize(
+
                         enemy.word
+
                     ).startsWith(
+
                         typed
+
                     )
+
             );
+
+
 
         if (!possible) {
 
+
+
             attempts++;
+
+
 
             input.value = "";
 
+
+
             statusElement.textContent =
+
                 "Comando inválido.";
+
+
 
             updateStats();
 
+
+
         }
 
+
+
     }
+
 );
 
 
+
+
+
 /* =====================================================
+
    GAME OVER / REINÍCIO
+
 ===================================================== */
+
+
 
 function showGameOver(message) {
 
+
+
     gameOver = true;
+    musicaFundo.pause();
+    musicToggle.textContent = "♫ Música: desligada";
+
+
 
     clearInterval(spawnInterval);
 
+
+
     updateStats();
 
+
+
     const accuracy =
+
         attempts > 0 ? Math.min(100, (score / attempts) * 100) : 100;
 
+
+
     document.getElementById("gameOverMessage").textContent = message;
+
     document.getElementById("gameOverScore").textContent = score;
+
     document.getElementById("gameOverAccuracy").textContent = Math.round(accuracy) + "%";
+
     document.getElementById("gameOverChapter").textContent = `${chapterIndex + 1}/${chapters.length}`;
+
     document.getElementById("gameOverScreen").style.display = "flex";
+
 }
+
+
 
 function restartGame() {
 
+
+
     document.getElementById("gameOverScreen").style.display = "none";
+
     document.getElementById("ending").style.display = "none";
 
+
+
     clearInterval(spawnInterval);
+
+
 
     score = 0;
+
     attempts = 0;
+
     lives = 3;
+
     chapterIndex = 0;
+
     enemies = [];
+
     particles = [];
+
     gameOver = false;
+
     startTime = Date.now();
 
+
+
     loadChapter();
+
     updateStats();
+
     input.value = "";
+
     input.focus();
 
+
+
     spawnInterval = setInterval(createEnemy, difficulty.spawnTime);
+
     gameLoop();
+
 }
+
+
 
 function backToDifficulty() {
+    musicaFundo.pause();
+    musicToggle.textContent = "♫ Música: desligada";
+
+
 
     clearInterval(spawnInterval);
+
     gameOver = true;
+
     document.getElementById("gameOverScreen").style.display = "none";
+
     document.getElementById("ending").style.display = "none";
+
     document.getElementById("difficultyScreen").style.display = "flex";
+
 }
+
+
+
 
 
 /* =====================================================
+
    FINAL
+
 ===================================================== */
+
+
 
 function finishGame() {
 
+
+
     if (gameOver)
+
         return;
+
+
 
     // São 49 palavras na fase; é necessário acertar 40 para vencer.
+
     const finalRequired = 40;
 
+
+
     if (score < finalRequired) {
+
         return;
+
     }
 
+
+
     gameOver = true;
+    musicaFundo.pause();
+    musicToggle.textContent = "♫ Música: desligada";
+
+
 
     clearInterval(
+
         spawnInterval
+
     );
+
+
 
     updateStats();
 
+
+
     const minutes =
+
         elapsedSeconds / 60;
 
+
+
     const wpm =
+
         minutes > 0
+
         ? score / minutes
+
         : 0;
 
+
+
     const accuracy =
+
         attempts > 0
+
         ? Math.min(100, (score / attempts) * 100)
+
         : 100;
 
+
+
     document.getElementById(
+
         "finalWpm"
+
     ).textContent =
+
         Math.round(wpm);
 
+
+
     document.getElementById(
+
         "finalWords"
+
     ).textContent =
+
         score;
 
+
+
     document.getElementById(
+
         "finalAttempts"
+
     ).textContent =
+
         attempts;
 
+
+
     document.getElementById(
+
         "finalAccuracy"
+
     ).textContent =
+
         Math.round(accuracy) + "%";
 
-    document.getElementById(
-        "finalTime"
-    ).textContent =
-        timeElement.textContent;
+
 
     document.getElementById(
+
+        "finalTime"
+
+    ).textContent =
+
+        timeElement.textContent;
+
+
+
+    document.getElementById(
+
         "ending"
+
     ).style.display =
+
         "flex";
+
 }
+
+
+
 
 
 /* =====================================================
+
    LOOP
+
 ===================================================== */
+
+
 
 function gameLoop() {
 
+
+
     if (gameOver)
+
         return;
+
+
 
     drawBackground();
 
+
+
     updateEnemies();
+
+
 
     updateParticles();
 
+
+
     drawPlayer();
 
+
+
     for (
+
         const enemy of enemies
+
     ) {
+
+
 
         drawEnemy(enemy);
 
+
+
     }
+
+
 
     drawParticles();
 
+
+
     updateStats();
 
+
+
     requestAnimationFrame(
+
         gameLoop
+
     );
+
 }
+
+
 
 </script>
 
+
+
 </body>
+
 </html>
